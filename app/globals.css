@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root,
+  .dark {
+    --background: 240 6% 5%;
+    --foreground: 60 5% 96%;
+
+    --surface: 240 6% 8%;
+    --surface-raised: 240 5% 12%;
+
+    --card: 240 6% 8%;
+    --card-foreground: 60 5% 96%;
+
+    --popover: 240 6% 9%;
+    --popover-foreground: 60 5% 96%;
+
+    --primary: 60 5% 96%;
+    --primary-foreground: 240 6% 6%;
+
+    --secondary: 240 5% 13%;
+    --secondary-foreground: 60 5% 96%;
+
+    --muted: 240 5% 13%;
+    --muted-foreground: 240 4% 62%;
+
+    --accent: 142 71% 45%;
+    --accent-foreground: 144 70% 8%;
+    --accent-muted: 142 35% 14%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5% 16%;
+    --input: 240 5% 16%;
+    --ring: 142 71% 45%;
+
+    --radius: 0.75rem;
+  }
+
+  .light {
+    --background: 60 20% 99%;
+    --foreground: 240 6% 8%;
+
+    --surface: 60 10% 97%;
+    --surface-raised: 0 0% 100%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 6% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 6% 8%;
+
+    --primary: 240 6% 8%;
+    --primary-foreground: 60 20% 99%;
+
+    --secondary: 60 10% 95%;
+    --secondary-foreground: 240 6% 8%;
+
+    --muted: 60 10% 94%;
+    --muted-foreground: 240 4% 40%;
+
+    --accent: 142 71% 38%;
+    --accent-foreground: 0 0% 100%;
+    --accent-muted: 142 40% 92%;
+
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5% 88%;
+    --input: 240 5% 88%;
+    --ring: 142 71% 38%;
+
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-background;
+  }
+
+  ::selection {
+    @apply bg-accent/30 text-foreground;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .container-narrow {
+    @apply mx-auto w-full max-w-3xl px-6;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, hsl(var(--border) / 0.5) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--border) / 0.5) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .mask-fade-bottom {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  /* Typography for sanitized blog post HTML (see lib/markdown.ts). Kept as
+     plain CSS rather than @tailwindcss/typography to avoid an extra
+     dependency for a fairly small, fixed set of markdown elements. */
+  .prose-voxlibro :where(h1, h2, h3, h4) {
+    @apply mt-10 mb-4 font-semibold tracking-tight text-foreground first:mt-0;
+  }
+  .prose-voxlibro h1 {
+    @apply text-2xl sm:text-3xl;
+  }
+  .prose-voxlibro h2 {
+    @apply text-xl sm:text-2xl;
+  }
+  .prose-voxlibro h3 {
+    @apply text-lg sm:text-xl;
+  }
+  .prose-voxlibro p {
+    @apply mb-5 leading-relaxed text-muted-foreground;
+  }
+  .prose-voxlibro a {
+    @apply text-accent underline underline-offset-4 hover:text-accent/80;
+  }
+  .prose-voxlibro strong {
+    @apply font-semibold text-foreground;
+  }
+  .prose-voxlibro :where(ul, ol) {
+    @apply mb-5 ml-6 space-y-2 text-muted-foreground;
+  }
+  .prose-voxlibro ul {
+    @apply list-disc;
+  }
+  .prose-voxlibro ol {
+    @apply list-decimal;
+  }
+  .prose-voxlibro blockquote {
+    @apply my-6 border-l-2 border-accent pl-4 italic text-muted-foreground;
+  }
+  .prose-voxlibro code {
+    @apply rounded bg-surface-raised px-1.5 py-0.5 font-mono text-[0.85em] text-foreground;
+  }
+  .prose-voxlibro pre {
+    @apply mb-5 overflow-x-auto rounded-xl border border-border bg-surface-raised p-4;
+  }
+  .prose-voxlibro pre code {
+    @apply bg-transparent p-0;
+  }
+  .prose-voxlibro img {
+    @apply my-6 rounded-xl border border-border;
+  }
+  .prose-voxlibro hr {
+    @apply my-8 border-border;
+  }
+  .prose-voxlibro :where(table) {
+    @apply mb-5 w-full border-collapse text-sm;
+  }
+  .prose-voxlibro :where(th, td) {
+    @apply border border-border px-3 py-2 text-left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
